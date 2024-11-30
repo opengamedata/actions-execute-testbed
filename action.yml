@@ -1,0 +1,27 @@
+name: "Execute Python Testbed"
+author: Luke Swanson
+description: "This action executes a Python unittest testbed using discovery."
+branding:
+  icon: 'box'
+  color: 'blue'
+inputs:
+  directory:
+    description: "The directory in which test discovery should be performed, searching for the `test_file`."
+    required: true
+    default: "tests/cases"
+  test_file:
+    description: "The python file containing the testbed."
+    required: true
+    default: "t_module.py"
+  python_version:
+    description: "Which version of Python to install on local GitHub Actions runner."
+    required: false
+    default: "3.12"
+runs:
+  using: "composite"
+  steps:
+    - name: Set up Python libraries
+      env:
+        python_command: python${{ inputs.python_version }}
+      run: ${{ env.python_command }} unittest discover -s ${{ inputs.directory }} -p "${{ inputs.test_file }}" -t ./
+      shell: bash
