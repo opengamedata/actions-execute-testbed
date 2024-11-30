@@ -23,5 +23,5 @@ runs:
     - name: Set up Python libraries
       env:
         python_command: python${{ inputs.python_version }}
-      run: ${{ env.python_command }} unittest discover -s ${{ inputs.directory }} -p "${{ inputs.test_file }}" -t ./
+      run: ${{ env.python_command }} -m unittest discover -s ${{ inputs.directory }} -p "${{ inputs.test_file }}" -t ./
       shell: bash
